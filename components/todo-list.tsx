@@ -1,8 +1,12 @@
 "use client";
 import { useState } from "react";
 import { CheckIcon, TrashIcon } from "@heroicons/react/24/solid";
+export interface ItodoItem {
+  content: string;
+  done: boolean;
+}
 const TodoList = () => {
-  const [todos, setTodos] = useState<string[]>([]);
+  const [todos, setTodos] = useState<ItodoItem[]>([]);
   const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -11,7 +15,7 @@ const TodoList = () => {
 
   const handleAddTodo = () => {
     if (inputValue.trim() !== "") {
-      setTodos([...todos, inputValue]);
+      setTodos([...todos, { content: inputValue, done: false }]);
       setInputValue("");
     } else {
       alert("Please enter a valid todo.");
@@ -26,6 +30,15 @@ const TodoList = () => {
     if (event.keyCode === 13) {
       handleAddTodo();
     }
+  };
+  const checkTodo = (index: number, done: boolean) => {
+    const updatedTodos = todos.map((todo, i) => {
+      if (i === index) {
+        return { ...todo, done };
+      }
+      return todo;
+    });
+    setTodos(updatedTodos);
   };
   return (
     <div className="container mx-auto p-4 min-h-[400px] w-[400px]">
@@ -47,8 +60,15 @@ const TodoList = () => {
         <ul className="h-[300px] overflow-y-auto">
           {todos.map((todo, index) => (
             <li key={index} className="flex items-center mb-2">
-              <input type="checkbox" name="" id="" className="w-4 h-4" />
-              <span className="flex-grow px-1 text-gray-200">{todo}</span>
+              <input
+                type="checkbox"
+                className="w-4 h-4"
+                checked={todos[index].done}
+                onChange={(event) => {
+                  checkTodo(index, event.target.checked);
+                }}
+              />
+              <span className={todo.done ? "flex-grow px-1 text-gray-200 line-through" : "flex-grow px-1 text-gray-200"}>{todo.content}</span>
               <button onClick={() => handleDeleteTodo(index)} className="text-red-500 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">
                 <TrashIcon className="h-5 w-5" />
               </button>
@@ -56,7 +76,7 @@ const TodoList = () => {
           ))}
         </ul>
       ) : (
-        <p>No todos yet.</p>
+        <p className="text-gray-100">No todos yet.</p>
       )}
     </div>
   );
