@@ -3,7 +3,7 @@ import { useState } from "react";
 import { CheckIcon, TrashIcon } from "@heroicons/react/24/solid";
 export interface ItodoItem {
   content: string;
-  done: boolean;
+  complete: boolean;
 }
 const TodoList = () => {
   const [todos, setTodos] = useState<ItodoItem[]>([]);
@@ -15,7 +15,7 @@ const TodoList = () => {
 
   const handleAddTodo = () => {
     if (inputValue.trim() !== "") {
-      setTodos([...todos, { content: inputValue, done: false }]);
+      setTodos([...todos, { content: inputValue, complete: false }]);
       setInputValue("");
     } else {
       alert("Please enter a valid todo.");
@@ -31,10 +31,10 @@ const TodoList = () => {
       handleAddTodo();
     }
   };
-  const checkTodo = (index: number, done: boolean) => {
+  const checkTodo = (index: number, complete: boolean) => {
     const updatedTodos = todos.map((todo, i) => {
       if (i === index) {
-        return { ...todo, done };
+        return { ...todo, complete };
       }
       return todo;
     });
@@ -63,12 +63,12 @@ const TodoList = () => {
               <input
                 type="checkbox"
                 className="w-4 h-4"
-                checked={todos[index].done}
+                checked={todos[index].complete}
                 onChange={(event) => {
                   checkTodo(index, event.target.checked);
                 }}
               />
-              <span className={todo.done ? "flex-grow px-1 text-gray-200 line-through" : "flex-grow px-1 text-gray-200"}>{todo.content}</span>
+              <span className={todo.complete ? "flex-grow px-1 text-gray-200 line-through" : "flex-grow px-1 text-gray-200"}>{todo.content}</span>
               <button onClick={() => handleDeleteTodo(index)} className="text-red-500 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">
                 <TrashIcon className="h-5 w-5" />
               </button>
