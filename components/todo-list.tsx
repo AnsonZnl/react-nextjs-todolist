@@ -13,9 +13,21 @@ const TodoList = () => {
     setInputValue(e.target.value);
   };
 
+  const setTodoList = (item: ItodoItem) => {
+    return fetch("/api/todo/set", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ content: item.content }),
+    });
+  };
+
   const handleAddTodo = () => {
     if (inputValue.trim() !== "") {
-      setTodos([...todos, { content: inputValue, complete: false }]);
+      const todoItem = { content: inputValue, complete: false };
+      setTodoList(todoItem);
+      setTodos([...todos, todoItem]);
       setInputValue("");
     } else {
       alert("Please enter a valid todo.");
