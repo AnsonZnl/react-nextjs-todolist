@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import AuthStatus from "@/components/auth-status";
 import { Suspense } from "react";
+import { NextAuthProvider } from "./providers";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -12,8 +13,7 @@ const inter = Inter({
 });
 
 const title = "Next.js Prisma Postgres Auth Starter";
-const description =
-  "This is a Next.js starter kit that uses Next-Auth for simple email + password login and a Postgres database to persist the data.";
+const description = "This is a Next.js starter kit that uses Next-Auth for simple email + password login and a Postgres database to persist the data.";
 
 export const metadata: Metadata = {
   title,
@@ -27,11 +27,7 @@ export const metadata: Metadata = {
   themeColor: "#FFF",
 };
 
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={inter.variable}>
@@ -40,7 +36,7 @@ export default async function RootLayout({
           {/* @ts-expect-error Async Server Component */}
           <AuthStatus />
         </Suspense>
-        {children}
+        <NextAuthProvider>{children}</NextAuthProvider>
       </body>
     </html>
   );

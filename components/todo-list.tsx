@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { CheckIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { useSession, signIn, signOut } from "next-auth/react";
 export interface ItodoItem {
   content: string;
   complete: boolean;
@@ -8,7 +9,7 @@ export interface ItodoItem {
 const TodoList = () => {
   const [todos, setTodos] = useState<ItodoItem[]>([]);
   const [inputValue, setInputValue] = useState("");
-
+  const { data: session } = useSession();
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
@@ -19,7 +20,7 @@ const TodoList = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ content: item.content }),
+      body: JSON.stringify({ content: item.content, userId: session?.user?.id }),
     });
   };
 
