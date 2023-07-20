@@ -1,33 +1,32 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CheckIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useSession, signIn, signOut } from "next-auth/react";
-export interface ItodoItem {
-  content: string;
-  complete: boolean;
-}
+import { ItodoItem } from "types";
+import { getTodoList, setTodoList } from "utils/request";
+
 const TodoList = () => {
   const [todos, setTodos] = useState<ItodoItem[]>([]);
   const [inputValue, setInputValue] = useState("");
-  const { data: session } = useSession();
+  const { data: session } = useSession() as any;
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
-  const setTodoList = (item: ItodoItem) => {
-    return fetch("/api/todo/set", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ content: item.content, userId: session?.user?.id }),
-    });
-  };
+  useEffect(() => {
+    if (session?.user.id) {
+      getTodoList(session?.user?.id).then(async (res) => {
+        const todo = await res.json();
+        console.log("todo=", todo);
+        setTodos(todo);
+      });
+    }
+  }, [session]);
 
   const handleAddTodo = () => {
     if (inputValue.trim() !== "") {
       const todoItem = { content: inputValue, complete: false };
-      setTodoList(todoItem);
+      setTodoList(inputValue, session.user.id);
       setTodos([...todos, todoItem]);
       setInputValue("");
     } else {

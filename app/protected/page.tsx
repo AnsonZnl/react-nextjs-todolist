@@ -1,5 +1,5 @@
 import SignOut from "@/components/sign-out";
-import TodoList from "@/components/todo-list";
+import TodoList from "@/app/protected/components/todo-list";
 export default function Home() {
   return (
     <div className="flex h-screen bg-black">
