@@ -17,3 +17,13 @@ export const getTodoList = (userId: Number) => {
     },
   });
 };
+
+export const setTodoStatus = (id: Number, status: boolean) => {
+  fetch("/api/todo/status", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id, status }),
+  });
+};

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { CheckIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { ItodoItem } from "types";
-import { getTodoList, setTodoList } from "utils/request";
+import { getTodoList, setTodoList, setTodoStatus } from "utils/request";
 
 const TodoList = () => {
   const [todos, setTodos] = useState<ItodoItem[]>([]);
@@ -23,10 +23,10 @@ const TodoList = () => {
     }
   }, [session]);
 
-  const handleAddTodo = () => {
+  const handleAddTodo = async () => {
     if (inputValue.trim() !== "") {
-      const todoItem = { content: inputValue, complete: false };
-      setTodoList(inputValue, session.user.id);
+      const user: any = await setTodoList(inputValue, session.user.id);
+      const todoItem = { id: user.id, content: inputValue, complete: false };
       setTodos([...todos, todoItem]);
       setInputValue("");
     } else {
@@ -43,7 +43,8 @@ const TodoList = () => {
       handleAddTodo();
     }
   };
-  const checkTodo = (index: number, complete: boolean) => {
+  const checkTodo = async (index: number, complete: boolean) => {
+    await setTodoStatus(todos[index].id, complete);
     const updatedTodos = todos.map((todo, i) => {
       if (i === index) {
         return { ...todo, complete };
