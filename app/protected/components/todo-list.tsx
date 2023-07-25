@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { CheckIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { ItodoItem } from "types";
-import { getTodoList, setTodoList, setTodoStatus } from "utils/request";
+import { getTodoList, setTodoList, setTodoStatus, deleteTodoList } from "utils/request";
 
 const TodoList = () => {
   const [todos, setTodos] = useState<ItodoItem[]>([]);
@@ -34,8 +34,10 @@ const TodoList = () => {
     }
   };
 
-  const handleDeleteTodo = (index: number) => {
+  const handleDeleteTodo = async (index: number) => {
+    await deleteTodoList(todos[index].id);
     const newTodos = todos.filter((_, i) => i !== index);
+
     setTodos(newTodos);
   };
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {

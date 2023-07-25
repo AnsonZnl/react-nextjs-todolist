@@ -27,3 +27,11 @@ export const setTodoStatus = (id: Number, status: boolean) => {
     body: JSON.stringify({ id, status }),
   });
 };
+export const deleteTodoList = (id: Number) => {
+  return fetch(`/api/todo/delete?id=${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};
