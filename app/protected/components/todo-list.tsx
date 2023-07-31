@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import { CheckIcon, TrashIcon } from "@heroicons/react/24/solid";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { TrashIcon } from "@heroicons/react/24/solid";
+import { useSession } from "next-auth/react";
 import { ItodoItem } from "types";
 import { getTodoList, setTodoList, setTodoStatus, deleteTodoList } from "utils/request";
 
@@ -17,7 +17,6 @@ const TodoList = () => {
     if (session?.user.id) {
       getTodoList(session?.user?.id).then(async (res) => {
         const todo = await res.json();
-        console.log("todo=", todo);
         setTodos(todo);
       });
     }
@@ -35,10 +34,9 @@ const TodoList = () => {
   };
 
   const handleDeleteTodo = async (index: number) => {
-    await deleteTodoList(todos[index].id);
     const newTodos = todos.filter((_, i) => i !== index);
-
     setTodos(newTodos);
+    await deleteTodoList(todos[index].id);
   };
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.keyCode === 13) {
@@ -46,7 +44,6 @@ const TodoList = () => {
     }
   };
   const checkTodo = async (index: number, complete: boolean) => {
-    await setTodoStatus(todos[index].id, complete);
     const updatedTodos = todos.map((todo, i) => {
       if (i === index) {
         return { ...todo, complete };
@@ -54,7 +51,9 @@ const TodoList = () => {
       return todo;
     });
     setTodos(updatedTodos);
+    await setTodoStatus(todos[index].id, complete);
   };
+
   return (
     <div className="container mx-auto p-4 min-h-[400px] w-[400px]">
       <h1 className="text-3xl font-bold mb-4">Todo List</h1>
