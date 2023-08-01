@@ -1,47 +1,45 @@
-<p align="center">
-  <a href="https://nextjs-postgres-auth.vercel.app/">
-    <img src="/public/logo.png" height="96">
-    <h3 align="center">Next.js Prisma PostgreSQL Auth Starter</h3>
-  </a>
-</p>
+# TodoList - Simple and Secure Todo Management
 
-<p align="center">
-This is a <a href="https://nextjs.org/">Next.js</a> starter kit that uses <a href="https://next-auth.js.org/">Next-Auth</a> for simple email + password login<br/>
-<a href="https://www.prisma.io/">Prisma</a> as the ORM, and a <a href="https://vercel.com/postgres">Vercel Postgres</a> database to persist the data.</p>
-
-<br/>
-
-## Deploy Your Own
-
-You can clone & deploy it to Vercel with one click:
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?demo-title=Next.js%20Prisma%20PostgreSQL%20Auth%20Starter&demo-description=Simple%20Next.js%2013%20starter%20kit%20that%20uses%20Next-Auth%20for%20auth%20and%20Prisma%20PostgreSQL%20as%20a%20database.&demo-url=https%3A%2F%2Fnextjs-postgres-auth.vercel.app%2F&demo-image=%2F%2Fimages.ctfassets.net%2Fe5382hct74si%2F7rsVQ1ZBSiWe9JGO6FUeZZ%2F210cba91036ca912b2770e0bd5d6cc5d%2Fthumbnail.png&project-name=Next.js%%20Prisma%20PostgreSQL%20Auth%20Starter&repository-name=nextjs-postgres-auth-starter&repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnextjs-postgres-auth-starter&from=templates&skippable-integrations=1&env=NEXTAUTH_SECRET&envDescription=Generate%20a%20random%20secret%3A&envLink=https://generate-secret.vercel.app/&stores=%5B%7B"type"%3A"postgres"%7D%5D)
-
-## Developing Locally
-
-You can clone & create this repo with the following command
-
-```bash
-npx create-next-app nextjs-typescript-starter --example "https://github.com/vercel/nextjs-postgres-auth-starter"
-```
+Welcome to TodoList, a simple and secure todo management application built with React, Next.js, Next-Auth, and Vercel Postgres. This project allows you to efficiently keep track of your tasks, ensuring you stay organized and on top of your daily goals.
 
 ## Getting Started
 
-First, run the development server:
+To get started with TodoList, follow these simple steps:
 
-```bash
-pnpm
+1. Clone the repository to your local machine.
+2. Install the required dependencies using `pnpm`.
+3. Create a Postgres database on Vercel and configure your environment variables.
+4. Run the application locally with `pnpm dev`.
+5. Start adding and managing your todos!
 
-pnpm dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **User Authentication**: TodoList leverages Next-Auth to provide simple and secure email + password login for users.
+- **Persistent Data**: Vercel Postgres is utilized to store your todo list securely, ensuring your data is always available.
 
-## Learn More
+## Technologies Used
 
-To learn more about Next.js, take a look at the following resources:
+- [React](https://reactjs.org/): A popular JavaScript library for building user interfaces.
+- [Next.js](https://nextjs.org/): A powerful framework for server-rendered React applications.
+- [Next-Auth](https://next-auth.js.org/): A simple and flexible authentication library for Next.js applications.
+- [Vercel Postgres](https://vercel.com/postgres): A reliable and scalable managed database solution by Vercel.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+You can deploy TodoList on Vercel with just a click! Simply click on the "Deploy to Vercel" button below to get started:
+
+[![Deploy to Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/AnsonZnl/react-nextjs-todolist)
+
+## Get Involved
+
+We welcome contributions from the community. If you encounter any issues, have suggestions for improvements, or would like to contribute code, feel free to check out our GitHub repository:
+
+[GitHub Repository](https://github.com/AnsonZnl/react-nextjs-todolist)
+
+## License
+
+TodoList is open-source and distributed under the MIT License. Feel free to use it, modify it, and share it with others.
+
+---
+
+Start organizing your tasks today with TodoList. Happy todo-ing!
