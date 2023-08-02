@@ -7,12 +7,12 @@ export default function Home() {
       <div className="w-screen h-screen flex flex-col justify-center items-center">
         <Image width={512} height={512} src="/logo.png" alt="Platforms on Vercel" className="w-48 h-48" />
         <div className="text-center max-w-screen-sm mb-10">
-          <h1 className="text-stone-200 font-bold text-2xl">TodoList</h1>
-          <h2>
+          <h1 className="text-stone-200 font-bold text-2xl">
             <Link href="/protected" prefetch={false} className="text-stone-200 underline hover:text-stone-200 transition-all">
-              Get Started
+              Todolist
             </Link>
-          </h2>
+          </h1>
+
           <p className="text-stone-400 mt-5">
             This is a{" "}
             <a href="https://nextjs.org/" target="_blank" rel="noopener noreferrer" className="text-stone-400 underline hover:text-stone-200 transition-all">
