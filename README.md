@@ -28,7 +28,7 @@ To get started with TodoList, follow these simple steps:
 
 You can deploy TodoList on Vercel with just a click! Simply click on the "Deploy to Vercel" button below to get started:
 
-[![Deploy to Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/AnsonZnl/react-nextjs-todolist)
+[![Deploy to Vercel](https://vercel.com/button)](https://vercel.com/new/clone?demo-title=React%20Next.js%20TodoList&demo-description=Simple%20React%20Next.js%20TodoList%20project%20repository.&demo-url=https%3A%2F%2Fgithub.com%2FAnsonZnl%2Freact-nextjs-todolist&demo-image=%2F%2Fimages.ctfassets.net%2Fe5382hct74si%2F7rsVQ1ZBSiWe9JGO6FUeZZ%2F210cba91036ca912b2770e0bd5d6cc5d%2Fthumbnail.png&project-name=React%20Next.js%20TodoList&repository-name=react-nextjs-todolist&repository-url=https%3A%2F%2Fgithub.com%2FAnsonZnl%2Freact-nextjs-todolist&from=templates&skippable-integrations=1&env=NEXTAUTH_SECRET&envDescription=Generate%20a%20random%20secret%3A&envLink=https%3A%2F%2Fgenerate-secret.vercel.app/&stores=%5B%7B%22type%22%3A%22postgres%22%7D%5D)
 
 ## Get Involved
 
