@@ -4,6 +4,7 @@ import { TrashIcon } from "@heroicons/react/24/solid";
 import { useSession } from "next-auth/react";
 import { ItodoItem } from "types";
 import { getTodoList, setTodoList, setTodoStatus, deleteTodoList } from "utils/request";
+import { toast } from "react-hot-toast";
 
 const TodoList = () => {
   const [todos, setTodos] = useState<ItodoItem[]>([]);
@@ -23,6 +24,11 @@ const TodoList = () => {
   }, [session]);
 
   const handleAddTodo = async () => {
+    if (todos.length > 6) {
+      toast.error("The number of todos exceeds five");
+      return;
+    }
+
     if (inputValue.trim() !== "") {
       const user: any = await setTodoList(inputValue, session.user.id);
       const todoItem = { id: user.id, content: inputValue, complete: false };
