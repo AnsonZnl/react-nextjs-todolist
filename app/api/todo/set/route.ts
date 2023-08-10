@@ -5,7 +5,7 @@ import { GET as getCount } from "../count/route";
 export async function POST(req: Request) {
   const { content, userId } = await req.json();
   const nums = await getCount(userId);
-  if (nums > 6) {
+  if (nums > 4) {
     return NextResponse.json({ code: -100, msg: "The number of todos exceeds five" });
   }
   const todo = await prisma.todoList.create({

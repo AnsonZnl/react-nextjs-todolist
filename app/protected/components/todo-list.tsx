@@ -24,7 +24,7 @@ const TodoList = () => {
   }, [session]);
 
   const handleAddTodo = async () => {
-    if (todos.length > 6) {
+    if (todos.length > 4) {
       toast.error("The number of todos exceeds five");
       return;
     }
