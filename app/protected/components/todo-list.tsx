@@ -5,11 +5,13 @@ import { useSession } from "next-auth/react";
 import { ItodoItem } from "types";
 import { getTodoList, setTodoList, setTodoStatus, deleteTodoList } from "utils/request";
 import { toast } from "react-hot-toast";
+import LoadingDots from "@/components/loading-dots";
 
 const TodoList = () => {
   const [todos, setTodos] = useState<ItodoItem[]>([]);
   const [inputValue, setInputValue] = useState("");
   const { data: session } = useSession() as any;
+  const [loading, setLoading] = useState<boolean>(false);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
@@ -30,8 +32,10 @@ const TodoList = () => {
     }
 
     if (inputValue.trim() !== "") {
-      const user: any = await setTodoList(inputValue, session.user.id);
-      const todoItem = { id: user.id, content: inputValue, complete: false };
+      setLoading(true);
+      const result: any = await setTodoList(inputValue, session.user.id);
+      const item = await result.json();
+      const todoItem = { id: item.id, content: inputValue, complete: false };
       setTodos([...todos, todoItem]);
       setInputValue("");
     } else {
@@ -60,6 +64,10 @@ const TodoList = () => {
     await setTodoStatus(todos[index].id, complete);
   };
 
+  useEffect(() => {
+    setLoading(false);
+  }, [todos]);
+
   return (
     <div className="container mx-auto p-4 min-h-[400px] w-[400px]">
       <h1 className="text-3xl font-bold mb-4">Todo List</h1>
@@ -72,8 +80,8 @@ const TodoList = () => {
           placeholder="Add a new todo"
           className="border border-gray-300 rounded-lg px-4 py-2 mr-2 flex-grow text-gray-600"
         />
-        <button onClick={handleAddTodo} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
-          Add
+        <button onClick={handleAddTodo} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-center w-[80px]">
+          {loading ? <LoadingDots color="#fff" /> : "Add"}
         </button>
       </div>
       {todos.length > 0 ? (
