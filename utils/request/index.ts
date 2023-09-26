@@ -1,5 +1,5 @@
 "use client";
-export const setTodoList = (content: String, userId: Number) => {
+export const setTodoList = (content: string, userId: number) => {
   return fetch("/api/todo/set", {
     method: "POST",
     headers: {
@@ -9,7 +9,7 @@ export const setTodoList = (content: String, userId: Number) => {
   });
 };
 
-export const getTodoList = (userId: Number) => {
+export const getTodoList = (userId: number) => {
   return fetch(`/api/todo/get?userId=${userId}`, {
     method: "GET",
     headers: {
@@ -18,7 +18,7 @@ export const getTodoList = (userId: Number) => {
   });
 };
 
-export const setTodoStatus = (id: Number, status: boolean) => {
+export const setTodoStatus = (id: number, status: boolean) => {
   fetch("/api/todo/status", {
     method: "POST",
     headers: {
@@ -27,7 +27,7 @@ export const setTodoStatus = (id: Number, status: boolean) => {
     body: JSON.stringify({ id, status }),
   });
 };
-export const deleteTodoList = (id: Number) => {
+export const deleteTodoList = (id: number) => {
   return fetch(`/api/todo/delete?id=${id}`, {
     method: "GET",
     headers: {
