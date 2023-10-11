@@ -19,7 +19,7 @@ const TodoList = () => {
   useEffect(() => {
     if (session?.user.id) {
       getTodoList(session?.user?.id).then(async (res) => {
-        const todo = await res.json();
+        const todo = (await res.json()) as ItodoItem[];
         setTodos(todo);
       });
     }
