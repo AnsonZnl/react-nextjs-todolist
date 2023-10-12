@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import { useSession } from "next-auth/react";
 import { ItodoItem } from "types";
-import { getTodoList, setTodoList, setTodoStatus, deleteTodoList } from "utils/request";
 import { toast } from "react-hot-toast";
 import LoadingDots from "@/components/loading-dots";
 
@@ -11,14 +10,17 @@ const TodoList = () => {
   const [todos, setTodos] = useState<ItodoItem[]>([]);
   const [inputValue, setInputValue] = useState("");
   const { data: session } = useSession() as any;
+  const [userId, setUserId] = useState<number | string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
   useEffect(() => {
-    if (session?.user.id) {
-      getTodoList(session?.user?.id).then(async (res) => {
+    const userId = session?.user?.id;
+    if (userId) {
+      setUserId(userId);
+      fetch(`/api/todo?userId=${userId}`, { method: "GET" }).then(async (res) => {
         const todo = (await res.json()) as ItodoItem[];
         setTodos(todo);
       });
@@ -34,8 +36,14 @@ const TodoList = () => {
 
     if (inputValue.trim() !== "") {
       setLoading(true);
-      const result: any = await setTodoList(inputValue, session.user.id);
-      const item = await result.json();
+      const result: any = await fetch("/api/todo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ content: inputValue, userId }),
+      });
+      const item = (await result.json()) as ItodoItem;
       const todoItem = { id: item.id, content: inputValue, complete: false };
       setTodos([...todos, todoItem]);
       setInputValue("");
@@ -47,7 +55,12 @@ const TodoList = () => {
   const handleDeleteTodo = async (index: number) => {
     const newTodos = todos.filter((_, i) => i !== index);
     setTodos(newTodos);
-    await deleteTodoList(todos[index].id);
+    await fetch(`/api/todo?id=${todos[index].id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   };
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.keyCode === 13) {
@@ -62,7 +75,13 @@ const TodoList = () => {
       return todo;
     });
     setTodos(updatedTodos);
-    await setTodoStatus(todos[index].id, complete);
+    await fetch("/api/todo", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: todos[index].id, complete }),
+    });
   };
 
   useEffect(() => {
