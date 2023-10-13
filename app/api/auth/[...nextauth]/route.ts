@@ -9,14 +9,14 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     session: async ({ session, token }) => {
-      if (session?.user) {
-        session.user.id = token.uid;
-      }
+      session.user.id = token.uid as number;
+      session.user.email = token.email as string;
       return session;
     },
     jwt: async ({ user, token }) => {
       if (user) {
         token.uid = user.id;
+        token.email = user.email;
       }
       return token;
     },
@@ -27,7 +27,7 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
+      async authorize(credentials): Promise<any> {
         const { email, password } = credentials ?? {};
         if (!email || !password) {
           throw new Error("Missing username or password");

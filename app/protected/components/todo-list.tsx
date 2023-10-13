@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { TrashIcon } from "@heroicons/react/24/solid";
-import { useSession } from "next-auth/react";
+import { SessionContextValue, useSession } from "next-auth/react";
 import { ItodoItem } from "types";
 import { toast } from "react-hot-toast";
 import LoadingDots from "@/components/loading-dots";
@@ -9,7 +9,7 @@ import LoadingDots from "@/components/loading-dots";
 const TodoList = () => {
   const [todos, setTodos] = useState<ItodoItem[]>([]);
   const [inputValue, setInputValue] = useState("");
-  const { data: session } = useSession() as any;
+  const { data: session } = useSession() as SessionContextValue;
   const [userId, setUserId] = useState<number | string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
